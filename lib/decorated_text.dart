@@ -1,8 +1,8 @@
 library decorated_text;
 
-export 'controllers/decorated_text_editing_controller.dart';
-export 'misc/decorator.dart';
-export 'misc/functions.dart';
-export 'models/decoration.dart';
-export 'models/decorator_rule.dart';
-export 'widgets/decorated_text.dart';
+export 'src/controllers/decorated_text_editing_controller.dart';
+export 'src/misc/decorator.dart';
+export 'src/misc/functions.dart';
+export 'src/models/decoration.dart';
+export 'src/models/decorator_rule.dart';
+export 'src/widgets/decorated_text.dart';
