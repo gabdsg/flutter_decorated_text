@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_decorated_text/decorated_text.dart';
+import 'package:flutter_decorated_text/flutter_decorated_text.dart';
 
 void main() {
   runApp(MyApp());
