@@ -28,6 +28,22 @@ class DecoratorRule {
     );
   }
 
+  factory DecoratorRule.words({
+    required List<String> words,
+    required TextStyle style,
+    required Function(String) onTap,
+    bool caseSensitive = false,
+  }) {
+    return DecoratorRule(
+      style: style,
+      regExp: CommonRegExp.words(
+        words,
+        caseSensitive: caseSensitive,
+      ),
+      onTap: onTap,
+    );
+  }
+
   factory DecoratorRule.url({
     required TextStyle style,
     required Function(String) onTap,

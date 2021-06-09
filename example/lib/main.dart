@@ -56,12 +56,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 DecoratorRule.word(
-                  word: "lorem",
+                  word: "lorem ipsum",
                   onTap: (match) {
                     print(match);
                   },
                   style: TextStyle(
                     background: Paint()..color = Colors.yellow,
+                  ),
+                ),
+                DecoratorRule.words(
+                  words: ["leap", "but", "sheets", "with"],
+                  onTap: (match) {
+                    print(match);
+                  },
+                  style: TextStyle(
+                    background: Paint()..color = Colors.lightBlue,
                   ),
                 ),
                 DecoratorRule.url(

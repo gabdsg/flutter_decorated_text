@@ -5,7 +5,19 @@ class CommonRegExp {
     bool multiLine = true,
   }) {
     return RegExp(
-      r"\b(" + word + r")\b",
+      "\\b($word)\\b",
+      caseSensitive: caseSensitive,
+      multiLine: multiLine,
+    );
+  }
+
+  static RegExp words(
+    List<String> words, {
+    bool caseSensitive = false,
+    bool multiLine = true,
+  }) {
+    return RegExp(
+      words.map((w) => "\\b($w)\\b").join("|"),
       caseSensitive: caseSensitive,
       multiLine: multiLine,
     );
