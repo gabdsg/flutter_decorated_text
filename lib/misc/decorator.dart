@@ -77,11 +77,21 @@ class Decorator {
     String copiedText,
     List<DecoratorRule> rules,
   ) {
-    final List<RegExpMatch> tags = [];
+    final List<RegExpMatch> tagsTemp = [];
     for (final rule in rules) {
       final regExp = rule.regExp;
       final localTags = regExp.allMatches(copiedText);
-      tags.addAll(localTags);
+      tagsTemp.addAll(localTags);
+    }
+
+    final List<RegExpMatch> tags = [];
+    for (final tag in tagsTemp) {
+      if (tags.any((e) => (tag.start <= e.start && tag.end >= e.end))) {
+        tags.removeWhere((e) => (tag.start <= e.start && tag.end >= e.end));
+        tags.add(tag);
+      } else if (!tags.any((e) => (tag.start >= e.start && tag.end <= e.end))) {
+        tags.add(tag);
+      }
     }
 
     if (tags.isEmpty) {
