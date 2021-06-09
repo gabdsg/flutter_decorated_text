@@ -17,7 +17,7 @@ class CommonRegExp {
     bool multiLine = true,
   }) {
     return RegExp(
-      words.map((w) => "\\b($w)\\b").join("|"),
+      "\\b(${words.join("|")})\\b",
       caseSensitive: caseSensitive,
       multiLine: multiLine,
     );

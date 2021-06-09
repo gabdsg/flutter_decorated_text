@@ -15,6 +15,15 @@ DecoratedText(
                 background: Paint()..color = Colors.yellow,
             ),
         ),
+        DecoratorRule.words(
+            words: ["leap", "but", "sheets", "with"],
+            onTap: (match) {
+            print(match);
+            },
+            style: TextStyle(
+            background: Paint()..color = Colors.lightBlue,
+            ),
+        ),
         DecoratorRule(
             regExp: RegExp(r"^(.*)"),
             onTap: (match) {
