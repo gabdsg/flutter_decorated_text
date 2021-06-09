@@ -16,10 +16,14 @@ class DecoratorRule {
     required String word,
     required TextStyle style,
     required Function(String) onTap,
+    bool caseSensitive = false,
   }) {
     return DecoratorRule(
       style: style,
-      regExp: CommonRegExp.word(word),
+      regExp: CommonRegExp.word(
+        word,
+        caseSensitive: caseSensitive,
+      ),
       onTap: onTap,
     );
   }
@@ -27,10 +31,13 @@ class DecoratorRule {
   factory DecoratorRule.url({
     required TextStyle style,
     required Function(String) onTap,
+    bool looseUrl = true,
   }) {
     return DecoratorRule(
       style: style,
-      regExp: CommonRegExp.url(looseUrl: true),
+      regExp: CommonRegExp.url(
+        looseUrl: looseUrl,
+      ),
       onTap: (match) {
         String url = match;
         if (!match.startsWith("http://") && !match.startsWith("https://")) {
