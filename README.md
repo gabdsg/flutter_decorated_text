@@ -7,7 +7,7 @@ Add onTap callback to rules and get the matching text
 
 ## Screenshots
 
-![Example screenshot](https://user-images.githubusercontent.com/748029/121573747-f8054000-c9fb-11eb-9f70-4623c66b9543.png)
+![Example screenshot](https://user-images.githubusercontent.com/748029/121581856-b7f68b00-ca04-11eb-88d9-33369e786433.png)
 
 
 ## Features
