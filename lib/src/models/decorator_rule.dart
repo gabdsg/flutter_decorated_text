@@ -4,18 +4,18 @@ import "../misc/common_regexp.dart";
 class DecoratorRule {
   final RegExp regExp;
   final TextStyle style;
-  final Function(String) onTap;
+  final Function(String)? onTap;
 
   DecoratorRule({
     required this.regExp,
     required this.style,
-    required this.onTap,
+    this.onTap,
   });
 
   factory DecoratorRule.word({
     required String word,
     required TextStyle style,
-    required Function(String) onTap,
+    Function(String)? onTap,
     bool caseSensitive = false,
   }) {
     return DecoratorRule(
@@ -31,7 +31,7 @@ class DecoratorRule {
   factory DecoratorRule.words({
     required List<String> words,
     required TextStyle style,
-    required Function(String) onTap,
+    Function(String)? onTap,
     bool caseSensitive = false,
   }) {
     return DecoratorRule(
@@ -64,6 +64,40 @@ class DecoratorRule {
         }
         onTap(url);
       },
+    );
+  }
+
+  factory DecoratorRule.startsWith({
+    required String text,
+    required TextStyle style,
+    Function(String)? onTap,
+    bool caseSensitive = false,
+  }) {
+    return DecoratorRule(
+      style: style,
+      regExp: CommonRegExp.startsWith(
+        text,
+        caseSensitive: caseSensitive,
+      ),
+      onTap: onTap,
+    );
+  }
+
+  factory DecoratorRule.between({
+    required String start,
+    required String end,
+    required TextStyle style,
+    Function(String)? onTap,
+    bool caseSensitive = false,
+  }) {
+    return DecoratorRule(
+      style: style,
+      regExp: CommonRegExp.between(
+        start: start,
+        end: end,
+        caseSensitive: caseSensitive,
+      ),
+      onTap: onTap,
     );
   }
 }

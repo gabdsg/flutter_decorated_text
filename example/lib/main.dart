@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Decorated text example',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -37,54 +38,106 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        brightness: Brightness.dark,
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.all(40.0),
-        child: Column(
-          children: [
-            DecoratedText(
-              text:
-                  "Is This is an example text with a full url http://google.com and a loose url google.com and google. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-              rules: [
-                DecoratorRule.word(
-                  word: "google",
-                  onTap: (match) {
-                    print(match);
-                  },
-                  style: TextStyle(
-                    color: Colors.red,
-                  ),
+        children: [
+          Text(
+            "Match text beteen tags",
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          DecoratedText(
+            selectable: true,
+            overflow: TextOverflow.ellipsis,
+            text:
+                "Like between brackets {this is an example} or html tags <p>this is a paragraph</p>",
+            rules: [
+              DecoratorRule.between(
+                start: "{",
+                end: "}",
+                style: TextStyle(
+                  color: Colors.blue,
                 ),
-                DecoratorRule.word(
-                  word: "lorem ipsum",
-                  onTap: (match) {
-                    print(match);
-                  },
-                  style: TextStyle(
-                    background: Paint()..color = Colors.yellow,
-                  ),
+              ),
+              DecoratorRule.between(
+                start: "<p>",
+                end: "</p>",
+                style: TextStyle(
+                  color: Colors.green,
                 ),
-                DecoratorRule.words(
-                  words: ["leap", "but", "sheets", "with"],
-                  onTap: (match) {
-                    print(match);
-                  },
-                  style: TextStyle(
-                    background: Paint()..color = Colors.lightBlue,
-                  ),
+              ),
+            ],
+          ),
+          Divider(),
+          Text(
+            "Match text starting with",
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          DecoratedText(
+            text: "Like twitter accounts @gabdsg or hashtags #decoratedtext",
+            rules: [
+              DecoratorRule.startsWith(
+                text: "@",
+                onTap: (match) {
+                  print(match);
+                },
+                style: TextStyle(
+                  color: Colors.blue,
                 ),
-                DecoratorRule.url(
-                  onTap: (url) {
-                    print(url);
-                  },
-                  style: TextStyle(
-                    color: Colors.blue,
-                  ),
+              ),
+              DecoratorRule.startsWith(
+                text: "#",
+                onTap: (match) {
+                  print(match);
+                },
+                style: TextStyle(
+                  color: Colors.green,
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+          Divider(),
+          Text(
+            "Match specific words",
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          DecoratedText(
+            text:
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            rules: [
+              DecoratorRule.words(
+                words: ["lorem ipsum", "industry", "book", "make"],
+                onTap: (match) {
+                  print(match);
+                },
+                style: TextStyle(
+                  background: Paint()..color = Colors.yellow,
+                ),
+              ),
+            ],
+          ),
+          Divider(),
+          Text(
+            "Match links",
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          DecoratedText(
+            text:
+                "You can match links with https https://pub.dev/ and links without it like google.com",
+            rules: [
+              DecoratorRule.url(
+                onTap: (url) {
+                  print(url);
+                },
+                style: TextStyle(
+                  color: Colors.blue,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -1,13 +1,84 @@
-# Decorated text
 
-## Usage
+# Flutter decorated text
+
+Set different rules to the DecoratedText widget to style differently what each rule matches.
+
+Add onTap callback to rules and get the matching text
+
+## Screenshots
+
+![Example screenshot](https://user-images.githubusercontent.com/748029/121562164-92ab5200-c9ef-11eb-870a-0562330b0501.jpg)
+
+
+## Features
+
+- Supports selectable text, just set selectable: true on the DecoratedText widget
+- Premade rules for matching
+    - Words
+    - Text starting with some prefix
+    - Text between tags
+    - Links
+- onTap callback returning matching text for individual rules
+  
+## Examples
+
+### Match text beteen tags
 ```
 DecoratedText(
-    text:
-        "Is This is an example text with a full url http://google.com and a loose url google.com and google. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    text: "Like between brackets {this is an example} or html tags <p>this is a paragraph</p>",
     rules: [
-        DecoratorRule.word(
-            word: "lorem",
+        DecoratorRule.between(
+            start: "{",
+            end: "}",
+            style: TextStyle(
+                color: Colors.blue,
+            ),
+        ),
+        DecoratorRule.between(
+            start: "<p>",
+            end: "</p>",
+            style: TextStyle(
+                color: Colors.green,
+            ),
+        ),
+    ],
+);
+```
+
+### Match text starting with
+```
+DecoratedText(
+    text: "Like twitter accounts @gabdsg or hashtags #decoratedtext",
+    rules: [
+        DecoratorRule.startsWith(
+            text: "@",
+            onTap: (match) {
+                print(match);
+            },
+            style: TextStyle(
+                color: Colors.blue,
+            ),
+        ),
+        DecoratorRule.startsWith(
+            text: "#",
+            onTap: (match) {
+                print(match);
+            },
+            style: TextStyle(
+                color: Colors.green,
+            ),
+        ),
+    ],
+);
+```
+
+### Match specific words
+```
+DecoratedText(
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    rules: [
+        DecoratorRule.words(
+            words: ["lorem ipsum", "industry", "book", "make"],
             onTap: (match) {
                 print(match);
             },
@@ -15,30 +86,23 @@ DecoratedText(
                 background: Paint()..color = Colors.yellow,
             ),
         ),
-        DecoratorRule.words(
-            words: ["leap", "but", "sheets", "with"],
-            onTap: (match) {
-            print(match);
-            },
-            style: TextStyle(
-            background: Paint()..color = Colors.lightBlue,
-            ),
-        ),
-        DecoratorRule(
-            regExp: RegExp(r"^(.*)"),
-            onTap: (match) {
-                print(match);
-            },
-            style: TextStyle(
-                color: Colors.red,
-            ),
-        ),
+    ],
+);
+```
+
+### Match links
+```
+DecoratedText(
+    text:
+        "You can match links with https https://pub.dev/ and links without it like google.com",
+    rules: [
         DecoratorRule.url(
             onTap: (url) {
                 print(url);
             },
             style: TextStyle(
                 color: Colors.blue,
+                decoration: TextDecoration.underline,
             ),
         ),
     ],

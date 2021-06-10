@@ -1,3 +1,8 @@
+## [1.0.3] - add new rules, selectable text
+
+* add DecoratorRule.startsWith
+* add DecoratorRule.between
+* add support for selectable text
 ## [1.0.2] - add DecoratorRule.words
 
 * add DecoratorRule.words to match multiple words

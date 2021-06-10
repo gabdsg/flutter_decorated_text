@@ -17,7 +17,7 @@ class DecoratedTextEditingController extends TextEditingController {
     TextStyle? style,
     bool withComposing = false,
   }) {
-    TextSpan originalTextSpan = super.buildTextSpan(
+    final TextSpan originalTextSpan = super.buildTextSpan(
       context: context,
       style: style,
       withComposing: withComposing,
@@ -25,7 +25,7 @@ class DecoratedTextEditingController extends TextEditingController {
 
     return getDecoratedTextSpan(
       style: originalTextSpan.style!,
-      source: this.text,
+      source: text,
       rules: rules,
     );
   }

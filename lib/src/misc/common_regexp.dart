@@ -40,4 +40,29 @@ class CommonRegExp {
   static RegExp url({bool looseUrl = false}) {
     return looseUrl ? _looseUrlRegex : _urlRegex;
   }
+
+  static RegExp startsWith(
+    String text, {
+    bool caseSensitive = false,
+    bool multiLine = true,
+  }) {
+    return RegExp(
+      "$text(\\S+)",
+      caseSensitive: caseSensitive,
+      multiLine: multiLine,
+    );
+  }
+
+  static RegExp between({
+    required String start,
+    required String end,
+    bool caseSensitive = false,
+    bool multiLine = true,
+  }) {
+    return RegExp(
+      "$start(.*?)$end",
+      caseSensitive: caseSensitive,
+      multiLine: multiLine,
+    );
+  }
 }

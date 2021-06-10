@@ -17,7 +17,7 @@ class Decorator {
   ) {
     TextRange? previousItem;
     final List<Decoration> result = [];
-    for (var tag in tags) {
+    for (final tag in tags) {
       ///Add untagged content
       if (previousItem == null) {
         if (tag.start > 0) {
@@ -86,10 +86,10 @@ class Decorator {
 
     final List<RegExpMatch> tags = [];
     for (final tag in tagsTemp) {
-      if (tags.any((e) => (tag.start <= e.start && tag.end >= e.end))) {
-        tags.removeWhere((e) => (tag.start <= e.start && tag.end >= e.end));
+      if (tags.any((e) => tag.start <= e.start && tag.end >= e.end)) {
+        tags.removeWhere((e) => tag.start <= e.start && tag.end >= e.end);
         tags.add(tag);
-      } else if (!tags.any((e) => (tag.start >= e.start && tag.end <= e.end))) {
+      } else if (!tags.any((e) => tag.start >= e.start && tag.end <= e.end)) {
         tags.add(tag);
       }
     }

@@ -1,5 +1,6 @@
-import '../models/decorator_rule.dart';
 import 'package:flutter/material.dart';
+
+import '../models/decorator_rule.dart';
 
 /// DataModel to explain the unit of word in decoration system
 class Decoration extends Comparable<Decoration> {

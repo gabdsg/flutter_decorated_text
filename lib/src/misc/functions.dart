@@ -33,7 +33,7 @@ TextSpan getDecoratedTextSpan({
                   ..onTap = () {
                     final decoration = decorations[index];
                     if (decoration.rule?.onTap != null) {
-                      decoration.rule?.onTap(
+                      decoration.rule?.onTap!(
                         decoration.range.textInside(source).trim(),
                       );
                     }
