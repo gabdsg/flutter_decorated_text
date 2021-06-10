@@ -5,11 +5,13 @@ class DecoratorRule {
   final RegExp regExp;
   final TextStyle style;
   final Function(String)? onTap;
+  final String Function(String)? transformMatch;
 
   DecoratorRule({
     required this.regExp,
     required this.style,
     this.onTap,
+    this.transformMatch,
   });
 
   factory DecoratorRule.word({
@@ -48,23 +50,38 @@ class DecoratorRule {
     required TextStyle style,
     required Function(String) onTap,
     bool looseUrl = true,
+    bool humanize = false,
+    bool removeWww = false,
   }) {
     return DecoratorRule(
-      style: style,
-      regExp: CommonRegExp.url(
-        looseUrl: looseUrl,
-      ),
-      onTap: (match) {
-        String url = match;
-        if (!match.startsWith("http://") && !match.startsWith("https://")) {
-          url = "https://$url";
-        }
-        if (url.endsWith(".")) {
-          url = url.substring(0, url.length - 1);
-        }
-        onTap(url);
-      },
-    );
+        style: style,
+        regExp: CommonRegExp.url(
+          looseUrl: looseUrl,
+        ),
+        onTap: (match) {
+          String url = match;
+          if (!match.startsWith("http://") && !match.startsWith("https://")) {
+            url = "https://$url";
+          }
+          if (url.endsWith(".")) {
+            url = url.substring(0, url.length - 1);
+          }
+          onTap(url);
+        },
+        transformMatch: (match) {
+          if (humanize) {
+            String url = match;
+            url = url.replaceFirst(RegExp('(http|https)?://'), '');
+            if (url.endsWith("/")) {
+              url = url.substring(0, url.length - 1);
+            }
+            if (removeWww) {
+              url = url.replaceFirst(RegExp(r'www\.'), '');
+            }
+            return url;
+          }
+          return match;
+        });
   }
 
   factory DecoratorRule.startsWith({

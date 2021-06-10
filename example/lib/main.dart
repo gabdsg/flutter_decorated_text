@@ -134,6 +134,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.blue,
                   decoration: TextDecoration.underline,
                 ),
+                humanize: false,
+                removeWww: false,
               ),
             ],
           ),

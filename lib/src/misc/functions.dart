@@ -24,11 +24,15 @@ TextSpan getDecoratedTextSpan({
         .asMap()
         .map(
           (index, item) {
+            String text = item.range.textInside(source);
+            if (item.rule?.transformMatch != null) {
+              text = item.rule!.transformMatch!(text);
+            }
             return MapEntry(
               index,
               TextSpan(
                 style: item.rule?.style,
-                text: item.range.textInside(source),
+                text: text,
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     final decoration = decorations[index];

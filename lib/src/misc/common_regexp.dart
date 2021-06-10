@@ -1,3 +1,4 @@
+// ignore: avoid_classes_with_only_static_members
 class CommonRegExp {
   static RegExp word(
     String word, {

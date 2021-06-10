@@ -1,3 +1,7 @@
+## [1.0.4] - add transform match
+
+* add transformMatch to DecoratorRule
+* add humanize and removeWww options to DecoratorRule.url
 ## [1.0.3] - add new rules, selectable text
 
 * add DecoratorRule.startsWith
