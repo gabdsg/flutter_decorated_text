@@ -66,6 +66,7 @@ class DecoratedText extends StatelessWidget {
           style: effectiveTextStyle!,
           source: text,
           rules: rules,
+          selectable: true,
         ),
         style: effectiveTextStyle,
         textAlign: textAlign,

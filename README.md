@@ -108,3 +108,33 @@ DecoratedText(
     ],
 );
 ```
+
+### Custom
+```
+DecoratedText(
+    text: "Match links and add the favicon: https://pub.dev/, https://google.com, stackoverflow.com and talkingpts.org",
+    rules: [
+        DecoratorRule(
+        regExp: RegExp(r'((https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))',
+            caseSensitive: false,
+            dotAll: true,
+            multiLine: true,
+        ),
+        onTap: (url) {
+            print(url);
+        },
+        style: TextStyle(
+            color: Colors.blue,
+        ),
+        leadingBuilder: (match) => Container(
+                width: 16 * 0.8,
+                height: 16 * 0.8,
+                margin: const EdgeInsets.only(right: 2, left: 2),
+                child: CachedNetworkImage(
+                    imageUrl: "${sanitizeUrl(match)}/favicon.ico",
+                ),
+            ),
+        ),
+    ],
+),
+```

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_decorated_text/flutter_decorated_text.dart';
 
@@ -33,6 +34,20 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  String sanitizeUrl(String _url) {
+    String url = _url;
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      url = "https://$url";
+    }
+    if (url.endsWith(".")) {
+      url = url.substring(0, url.length - 1);
+    }
+    if (url.endsWith("/")) {
+      url = url.substring(0, url.length - 1);
+    }
+    return url;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           DecoratedText(
             selectable: true,
-            overflow: TextOverflow.ellipsis,
             text:
                 "Like between brackets {this is an example} or html tags <p>this is a paragraph</p>",
             rules: [
@@ -136,6 +150,39 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 humanize: false,
                 removeWww: false,
+              ),
+            ],
+          ),
+          Divider(),
+          Text(
+            "Custom link match",
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          DecoratedText(
+            text:
+                "Match links and add the favicon: https://pub.dev/, https://google.com, stackoverflow.com and talkingpts.org",
+            rules: [
+              DecoratorRule(
+                regExp: RegExp(
+                  r'((https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))',
+                  caseSensitive: false,
+                  dotAll: true,
+                  multiLine: true,
+                ),
+                onTap: (url) {
+                  print(url);
+                },
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
+                leadingBuilder: (match) => Container(
+                  width: 16 * 0.8,
+                  height: 16 * 0.8,
+                  margin: const EdgeInsets.only(right: 2, left: 2),
+                  child: CachedNetworkImage(
+                    imageUrl: "${sanitizeUrl(match)}/favicon.ico",
+                  ),
+                ),
               ),
             ],
           ),

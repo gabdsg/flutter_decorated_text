@@ -6,12 +6,16 @@ class DecoratorRule {
   final TextStyle style;
   final Function(String)? onTap;
   final String Function(String)? transformMatch;
+  final Widget Function(String)? leadingBuilder;
+  final Widget Function(String)? trailingBuilder;
 
   DecoratorRule({
     required this.regExp,
     required this.style,
     this.onTap,
     this.transformMatch,
+    this.leadingBuilder,
+    this.trailingBuilder,
   });
 
   factory DecoratorRule.word({
@@ -71,7 +75,7 @@ class DecoratorRule {
         transformMatch: (match) {
           if (humanize) {
             String url = match;
-            url = url.replaceFirst(RegExp('(http|https)?://'), '');
+            url = url.replaceFirst(RegExp('https?://'), '');
             if (url.endsWith("/")) {
               url = url.substring(0, url.length - 1);
             }

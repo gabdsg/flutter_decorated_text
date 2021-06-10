@@ -27,6 +27,7 @@ class DecoratedTextEditingController extends TextEditingController {
       style: originalTextSpan.style!,
       source: text,
       rules: rules,
+      selectable: true,
     );
   }
 }

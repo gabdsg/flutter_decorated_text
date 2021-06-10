@@ -1,3 +1,7 @@
+## [1.0.5] - leading and trailing builder
+
+* add leading and trailing builder
+
 ## [1.0.4] - add transform match
 
 * add transformMatch to DecoratorRule

@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   flutter_decorated_text:
     path: ../
+  cached_network_image: ^3.0.0
 
 flutter:
   uses-material-design: true
