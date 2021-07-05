@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
           DecoratedText(
             selectable: true,
             text:
-                "Like between brackets {this is an example} or html tags <p>this is a paragraph</p>",
+                "Like between brackets {this is an example} or html tags <p>this is a paragraph</p> and you can remove the matching characters *between astericks*",
             rules: [
               DecoratorRule.between(
                 start: "{",
@@ -80,6 +80,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(
                   color: Colors.green,
                 ),
+              ),
+              DecoratorRule.between(
+                start: "*",
+                end: "*",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                removeMatchingCharacters: true,
               ),
             ],
           ),

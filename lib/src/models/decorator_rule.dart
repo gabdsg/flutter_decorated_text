@@ -109,6 +109,7 @@ class DecoratorRule {
     required String end,
     required TextStyle style,
     Function(String)? onTap,
+    bool removeMatchingCharacters = false,
     bool caseSensitive = false,
   }) {
     return DecoratorRule(
@@ -119,6 +120,15 @@ class DecoratorRule {
         caseSensitive: caseSensitive,
       ),
       onTap: onTap,
+      transformMatch: (match) {
+        if (removeMatchingCharacters) {
+          String res = match;
+          res = res.replaceFirst(start, "");
+          res = res.replaceFirst(end, "");
+          return res;
+        }
+        return match;
+      },
     );
   }
 }

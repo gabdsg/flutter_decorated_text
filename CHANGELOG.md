@@ -1,3 +1,8 @@
+## [1.0.6] - New feature, fixes
+
+* add removeMatchingCharacters to DecoratorRule.between
+* fix default regexp when using characters like *
+
 ## [1.0.5] - leading and trailing builder
 
 * add leading and trailing builder

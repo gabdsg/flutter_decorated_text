@@ -47,8 +47,9 @@ class CommonRegExp {
     bool caseSensitive = false,
     bool multiLine = true,
   }) {
+    final String backslash = r'\';
     return RegExp(
-      "$text(\\S+)",
+      "$backslash$text(\\S+)",
       caseSensitive: caseSensitive,
       multiLine: multiLine,
     );
@@ -60,8 +61,9 @@ class CommonRegExp {
     bool caseSensitive = false,
     bool multiLine = true,
   }) {
+    final String backslash = r'\';
     return RegExp(
-      "$start(.*?)$end",
+      "$backslash$start(.*?)$backslash$end",
       caseSensitive: caseSensitive,
       multiLine: multiLine,
     );
