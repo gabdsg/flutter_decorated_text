@@ -2,7 +2,7 @@ name: flutter_decorated_text
 description: >-
   Set different rules to the DecoratedText widget to style differently what each rule matches.
   Add onTap callback to rules and get the matching text
-version: 1.0.6
+version: 1.0.7
 repository: https://github.com/gabdsg/flutter_decorated_text
 
 environment:
@@ -12,9 +12,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  collection: ^1.15.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  lint: ^1.5.3
+  flutter_lints: ^1.0.4
 flutter:

@@ -47,7 +47,7 @@ class CommonRegExp {
     bool caseSensitive = false,
     bool multiLine = true,
   }) {
-    final String backslash = r'\';
+    const String backslash = r'\';
     return RegExp(
       "$backslash$text(\\S+)",
       caseSensitive: caseSensitive,
@@ -61,7 +61,7 @@ class CommonRegExp {
     bool caseSensitive = false,
     bool multiLine = true,
   }) {
-    final String backslash = r'\';
+    const String backslash = r'\';
     return RegExp(
       "$backslash$start(.*?)$backslash$end",
       caseSensitive: caseSensitive,

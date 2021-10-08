@@ -1,3 +1,7 @@
+## [1.0.7] - Fix web 
+
+* fix web support
+
 ## [1.0.6] - New feature, fixes
 
 * add removeMatchingCharacters to DecoratorRule.between

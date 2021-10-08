@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Decoration;
 
 import '../models/decoration.dart';
@@ -44,7 +45,7 @@ class Decorator {
             start: tag.start,
             end: tag.end,
           ),
-          rule: rules.firstWhere(
+          rule: rules.firstWhereOrNull(
             (element) => tag.pattern.toString().startsWith(
                   "RegExp: pattern=${element.regExp.pattern}",
                 ),
