@@ -46,9 +46,8 @@ class Decorator {
             end: tag.end,
           ),
           rule: rules.firstWhereOrNull(
-            (element) => tag.pattern.toString().startsWith(
-                  "RegExp: pattern=${element.regExp.pattern}",
-                ),
+            (element) =>
+                tag.pattern.toString().contains(element.regExp.pattern),
           ),
         ),
       );

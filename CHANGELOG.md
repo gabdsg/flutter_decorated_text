@@ -1,4 +1,4 @@
-## [1.0.7] - Fix web 
+## [1.0.8] - Fix web 
 
 * fix web support
 
