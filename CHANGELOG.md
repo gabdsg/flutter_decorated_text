@@ -1,3 +1,6 @@
+## [1.0.8] - Fix loose url RegExp
+
+* Fix loose url RegExp
 ## [1.0.8] - Fix web 
 
 * fix web support
