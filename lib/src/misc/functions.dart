@@ -47,14 +47,18 @@ TextSpan getDecoratedTextSpan({
                           WidgetSpan(
                             alignment: PlaceholderAlignment.middle,
                             child: GestureDetector(
-                              onTap: () {
-                                final decoration = decorations[index];
-                                if (decoration.rule?.onTap != null) {
-                                  decoration.rule?.onTap!(
-                                    decoration.range.textInside(source).trim(),
-                                  );
-                                }
-                              },
+                              onTap: decorations[index].rule?.onTap == null
+                                  ? null
+                                  : () {
+                                      final decoration = decorations[index];
+                                      if (decoration.rule?.onTap != null) {
+                                        decoration.rule?.onTap!(
+                                          decoration.range
+                                              .textInside(source)
+                                              .trim(),
+                                        );
+                                      }
+                                    },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -81,15 +85,17 @@ TextSpan getDecoratedTextSpan({
                             ),
                           ),
                         ],
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      final decoration = decorations[index];
-                      if (decoration.rule?.onTap != null) {
-                        decoration.rule?.onTap!(
-                          decoration.range.textInside(source).trim(),
-                        );
-                      }
-                    },
+                  recognizer: decorations[index].rule?.onTap == null
+                      ? null
+                      : (TapGestureRecognizer()
+                        ..onTap = () {
+                          final decoration = decorations[index];
+                          if (decoration.rule?.onTap != null) {
+                            decoration.rule?.onTap!(
+                              decoration.range.textInside(source).trim(),
+                            );
+                          }
+                        }),
                 ),
               );
             } catch (err) {
