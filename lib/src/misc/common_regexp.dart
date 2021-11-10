@@ -24,6 +24,15 @@ class CommonRegExp {
     );
   }
 
+  static RegExp email() {
+    return RegExp(
+      r'((mailto:)?[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z][A-Z]+)',
+      caseSensitive: false,
+      dotAll: true,
+      multiLine: true,
+    );
+  }
+
   static final _urlRegex = RegExp(
     r'((?:https?:\/\/|www\.)[^\s/$.?#].[^\s]*)',
     caseSensitive: false,

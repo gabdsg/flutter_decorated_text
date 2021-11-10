@@ -1,3 +1,7 @@
+## [1.0.12] - Add email RegExp
+
+* Add DecoratorRule.email
+
 ## [1.0.11] - Fix cursor (web)
 
 * Fix cursor (web)

@@ -50,6 +50,26 @@ class DecoratorRule {
     );
   }
 
+  factory DecoratorRule.email({
+    required TextStyle style,
+    required Function(String) onTap,
+  }) {
+    return DecoratorRule(
+      style: style,
+      regExp: CommonRegExp.email(),
+      onTap: (match) {
+        String url = match;
+        if (!match.startsWith("mailto:")) {
+          url = "mailto:$url";
+        }
+        onTap(url);
+      },
+      transformMatch: (match) {
+        return match;
+      },
+    );
+  }
+
   factory DecoratorRule.url({
     required TextStyle style,
     required Function(String) onTap,
