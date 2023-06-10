@@ -1,29 +1,24 @@
+# Flutter DecoratedText
 
-# Flutter decorated text
-
-Set different rules to the DecoratedText widget to style differently what each rule matches.
-
-Add onTap callback to rules and get the matching text
-
-## Screenshots
+The `DecoratedText` widget allows you to style and interact with different parts of a text string based on predefined rules. It's versatile, easy-to-use, and can handle different scenarios such as matching specific words, phrases, or patterns, allowing you to style the matched text differently.
 
 ![Example screenshot](https://user-images.githubusercontent.com/748029/121581856-b7f68b00-ca04-11eb-88d9-33369e786433.png)
 
-
 ## Features
 
-- Supports selectable text, just set selectable: true on the DecoratedText widget
-- Premade rules for matching
-    - Words
-    - Text starting with some prefix
-    - Text between tags
-    - Links
-- onTap callback returning matching text for individual rules
-  
-## Examples
+- **Selectable Text:** Enable the selectable property (`selectable: true`) to allow text selection in the `DecoratedText` widget.
+- **Predefined Rules:** These are used to match different elements within the text. These rules include:
+    - Matching words.
+    - Matching text starting with a particular prefix.
+    - Matching text between specific tags.
+    - Matching links (URLs).
+- **Interactive:** Each rule can include an `onTap` callback, which returns the matched text, allowing you to implement interactive behavior such as opening a link when a URL is tapped.
 
-### Match text beteen tags
-```
+## Usage Examples
+
+### Match Text Between Tags
+
+```dart
 DecoratedText(
     text: "Like between brackets {this is an example} or html tags <p>this is a paragraph</p>",
     rules: [
@@ -45,8 +40,9 @@ DecoratedText(
 );
 ```
 
-### Match text starting with
-```
+### Match Text Starting With a Prefix
+
+```dart
 DecoratedText(
     text: "Like twitter accounts @gabdsg or hashtags #decoratedtext",
     rules: [
@@ -72,8 +68,9 @@ DecoratedText(
 );
 ```
 
-### Match specific words
-```
+### Match Specific Words
+
+```dart
 DecoratedText(
     text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     rules: [
@@ -90,11 +87,11 @@ DecoratedText(
 );
 ```
 
-### Match links
-```
+### Match URLs
+
+```dart
 DecoratedText(
-    text:
-        "You can match links with https https://pub.dev/ and links without it like google.com",
+    text: "You can match links with https https://pub.dev/ and links without it like google.com",
     rules: [
         DecoratorRule.url(
             onTap: (url) {
@@ -109,13 +106,16 @@ DecoratedText(
 );
 ```
 
-### Custom
-```
+### Custom Rule using Regular Expressions
+
+```dart
 DecoratedText(
     text: "Match links and add the favicon: https://pub.dev/, https://google.com, stackoverflow.com and talkingpts.org",
     rules: [
         DecoratorRule(
-        regExp: RegExp(r'((https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))',
+        regExp: RegExp(r'((https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256
+
+}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))',
             caseSensitive: false,
             dotAll: true,
             multiLine: true,
@@ -138,3 +138,5 @@ DecoratedText(
     ],
 ),
 ```
+
+Remember, with the `DecoratedText` widget, you can style your text based on predefined rules, add interactivity, and handle complex matching scenarios with ease. Happy coding!
