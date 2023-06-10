@@ -195,6 +195,25 @@ class _ExampleScreenState extends State<ExampleScreen> {
               ),
             ],
           ),
+          const Divider(),
+          Text(
+            "Match emojis on text",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          DecoratedText(
+            text: "I love Flutter! 😍",
+            rules: [
+              DecoratorRule(
+                regExp: RegExp(r'(\p{Emoji_Presentation})', unicode: true),
+                style: const TextStyle(
+                  fontSize: 30.0,
+                ),
+                onTap: (emoji) {
+                  debugPrint('You tapped on the emoji: $emoji');
+                },
+              ),
+            ],
+          ),
         ],
       ),
     );
