@@ -4,10 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_decorated_text/flutter_decorated_text.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,27 +18,25 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Decorated text example'),
+      home: const ExampleScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+class ExampleScreen extends StatefulWidget {
+  const ExampleScreen({super.key});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<ExampleScreen> createState() => _ExampleScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _ExampleScreenState extends State<ExampleScreen> {
   @override
   void initState() {
     super.initState();
   }
 
-  String sanitizeUrl(String _url) {
-    String url = _url;
+  String sanitizeUrl(String url) {
     if (!url.startsWith("http://") && !url.startsWith("https://")) {
       url = "https://$url";
     }
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text("Decorated text example"),
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: ListView(
@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Text(
             "Match text beteen tags",
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           DecoratedText(
             selectable: true,
@@ -71,31 +71,31 @@ class _MyHomePageState extends State<MyHomePage> {
               DecoratorRule.between(
                 start: "{",
                 end: "}",
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.blue,
                 ),
               ),
               DecoratorRule.between(
                 start: "<p>",
                 end: "</p>",
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.green,
                 ),
               ),
               DecoratorRule.between(
                 start: "*",
                 end: "*",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
                 removeMatchingCharacters: true,
               ),
             ],
           ),
-          Divider(),
+          const Divider(),
           Text(
             "Match text starting with",
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           DecoratedText(
             text: "Like twitter accounts @gabdsg or hashtags #decoratedtext",
@@ -103,27 +103,27 @@ class _MyHomePageState extends State<MyHomePage> {
               DecoratorRule.startsWith(
                 text: "@",
                 onTap: (match) {
-                  print(match);
+                  debugPrint(match);
                 },
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.blue,
                 ),
               ),
               DecoratorRule.startsWith(
                 text: "#",
                 onTap: (match) {
-                  print(match);
+                  debugPrint(match);
                 },
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.green,
                 ),
               ),
             ],
           ),
-          Divider(),
+          const Divider(),
           Text(
             "Match specific words",
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           DecoratedText(
             text:
@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
               DecoratorRule.words(
                 words: ["lorem ipsum", "industry", "book", "make"],
                 onTap: (match) {
-                  print(match);
+                  debugPrint(match);
                 },
                 style: TextStyle(
                   background: Paint()..color = Colors.yellow,
@@ -140,10 +140,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
-          Divider(),
+          const Divider(),
           Text(
             "Match links",
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           DecoratedText(
             text:
@@ -151,9 +151,9 @@ class _MyHomePageState extends State<MyHomePage> {
             rules: [
               DecoratorRule.url(
                 onTap: (url) {
-                  print(url);
+                  debugPrint(url);
                 },
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.blue,
                   decoration: TextDecoration.underline,
                 ),
@@ -162,10 +162,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
-          Divider(),
+          const Divider(),
           Text(
             "Custom link match",
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           DecoratedText(
             text:
@@ -179,9 +179,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   multiLine: true,
                 ),
                 onTap: (url) {
-                  print(url);
+                  debugPrint(url);
                 },
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.blue,
                 ),
                 leadingBuilder: (match) => Container(
