@@ -139,4 +139,23 @@ DecoratedText(
 ),
 ```
 
+
+### Match emojis
+```
+DecoratedText(
+    text: "I love Flutter! 😍",
+    rules: [
+        DecoratorRule(
+        regExp: RegExp(r'(\p{Emoji_Presentation})', unicode: true),
+        style: const TextStyle(
+            fontSize: 30.0,
+        ),
+        onTap: (emoji) {
+            debugPrint('You tapped on the emoji: $emoji');
+        },
+        ),
+    ],
+),
+```
+
 Remember, with the `DecoratedText` widget, you can style your text based on predefined rules, add interactivity, and handle complex matching scenarios with ease. Happy coding!

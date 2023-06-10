@@ -1,6 +1,8 @@
-## [1.0.13] - Update readme
+## [1.0.14] - Update package dependencies
 
-* Update readme and package description
+* Update README and package description
+* Add new example for matching emojis
+* Update package dependencies
 
 ## [1.0.12] - Add email RegExp
 
