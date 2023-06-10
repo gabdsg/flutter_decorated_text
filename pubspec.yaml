@@ -1,8 +1,7 @@
 name: flutter_decorated_text
 description: >-
-  Set different rules to the DecoratedText widget to style differently what each rule matches.
-  Add onTap callback to rules and get the matching text
-version: 1.0.12
+  The DecoratedText widget allows you to style and interact with different parts of a text string based on predefined rules. It's versatile, easy-to-use, and can handle different scenarios such as matching specific words, phrases, or patterns, allowing you to style the matched text differently.
+version: 1.0.13
 repository: https://github.com/gabdsg/flutter_decorated_text
 
 environment:
