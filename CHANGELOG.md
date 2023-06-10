@@ -1,3 +1,7 @@
+## [1.0.13] - Update readme
+
+* Update readme and package description
+
 ## [1.0.12] - Add email RegExp
 
 * Add DecoratorRule.email
