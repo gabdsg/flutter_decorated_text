@@ -4,17 +4,17 @@ publish_to: 'none'
 version: 1.0.0
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_decorated_text:
     path: ../
-  cached_network_image: ^3.0.0
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
-  flutter_lints: ^2.0.1
+  flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true

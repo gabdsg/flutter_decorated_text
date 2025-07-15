@@ -5,17 +5,17 @@ version: 1.0.14
 repository: https://github.com/gabdsg/flutter_decorated_text
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
+  sdk: ">=3.0.0 <4.0.0"
   flutter: ">=3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  collection: ^1.17.1
+  collection: ^1.19.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^6.0.0
   
 flutter:

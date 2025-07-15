@@ -5,9 +5,9 @@ import '../models/decorator_rule.dart';
 
 class DecoratedTextEditingController extends TextEditingController {
   DecoratedTextEditingController({
-    String? text,
+    super.text,
     this.rules = const [],
-  }) : super(text: text);
+  });
 
   final List<DecoratorRule> rules;
 

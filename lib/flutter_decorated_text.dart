@@ -1,4 +1,4 @@
-library decorated_text;
+library;
 
 export 'src/controllers/decorated_text_editing_controller.dart';
 export 'src/misc/decorator.dart';

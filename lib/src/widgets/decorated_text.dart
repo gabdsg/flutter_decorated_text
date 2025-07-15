@@ -8,7 +8,7 @@ import '../models/decorator_rule.dart';
 /// [rules] list of DecoratorRule
 class DecoratedText extends StatelessWidget {
   const DecoratedText({
-    Key? key,
+    super.key,
     required this.text,
     required this.rules,
     this.style,
@@ -16,14 +16,14 @@ class DecoratedText extends StatelessWidget {
     this.textDirection,
     this.softWrap,
     this.overflow,
-    this.textScaleFactor,
     this.maxLines,
     this.locale,
     this.strutStyle,
     this.textWidthBasis,
     this.textHeightBehavior,
+    this.textScaler,
     this.selectable = false,
-  }) : super(key: key);
+  });
 
   final String text;
   final TextStyle? style;
@@ -31,7 +31,7 @@ class DecoratedText extends StatelessWidget {
   final TextAlign? textAlign;
   final TextDirection? textDirection;
 
-  final double? textScaleFactor;
+  final TextScaler? textScaler;
   final int? maxLines;
   final StrutStyle? strutStyle;
   final TextWidthBasis? textWidthBasis;
@@ -72,7 +72,7 @@ class DecoratedText extends StatelessWidget {
         textDirection: textDirection,
         // softWrap: softWrap,
         // overflow: overflow,
-        textScaleFactor: textScaleFactor,
+        textScaler: textScaler,
         maxLines: maxLines,
         // locale: locale,
         strutStyle: strutStyle,
@@ -91,7 +91,7 @@ class DecoratedText extends StatelessWidget {
       textDirection: textDirection,
       softWrap: softWrap,
       overflow: overflow,
-      textScaleFactor: textScaleFactor,
+      textScaler: textScaler,
       maxLines: maxLines,
       locale: locale,
       strutStyle: strutStyle,

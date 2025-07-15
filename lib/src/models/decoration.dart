@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/decorator_rule.dart';
 
 /// DataModel to explain the unit of word in decoration system
-class Decoration extends Comparable<Decoration> {
+class Decoration implements Comparable<Decoration> {
   Decoration({
     required this.range,
     this.rule,
