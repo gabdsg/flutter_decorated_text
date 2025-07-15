@@ -8,6 +8,7 @@ class DecoratorRule {
   final String Function(String)? transformMatch;
   final Widget Function(String)? leadingBuilder;
   final Widget Function(String)? trailingBuilder;
+  final Widget Function(Widget)? builder;
 
   DecoratorRule({
     required this.regExp,
@@ -16,12 +17,14 @@ class DecoratorRule {
     this.transformMatch,
     this.leadingBuilder,
     this.trailingBuilder,
+    this.builder,
   });
 
   factory DecoratorRule.word({
     required String word,
     required TextStyle style,
     Function(String)? onTap,
+     Widget Function(Widget)? builder,
     bool caseSensitive = false,
   }) {
     return DecoratorRule(
@@ -30,6 +33,7 @@ class DecoratorRule {
         word,
         caseSensitive: caseSensitive,
       ),
+      builder: builder,
       onTap: onTap,
     );
   }
@@ -37,6 +41,7 @@ class DecoratorRule {
   factory DecoratorRule.words({
     required List<String> words,
     required TextStyle style,
+     Widget Function(Widget)? builder,
     Function(String)? onTap,
     bool caseSensitive = false,
   }) {
@@ -46,6 +51,7 @@ class DecoratorRule {
         words,
         caseSensitive: caseSensitive,
       ),
+      builder: builder,
       onTap: onTap,
     );
   }
@@ -53,10 +59,12 @@ class DecoratorRule {
   factory DecoratorRule.email({
     required TextStyle style,
     required Function(String) onTap,
+     Widget Function(Widget)? builder,
   }) {
     return DecoratorRule(
       style: style,
       regExp: CommonRegExp.email(),
+      builder: builder,
       onTap: (match) {
         String url = match;
         if (!match.startsWith("mailto:")) {
@@ -73,6 +81,7 @@ class DecoratorRule {
   factory DecoratorRule.url({
     required TextStyle style,
     required Function(String) onTap,
+    Widget Function(Widget)? builder,
     bool looseUrl = true,
     bool humanize = false,
     bool removeWww = false,
@@ -82,6 +91,7 @@ class DecoratorRule {
         regExp: CommonRegExp.url(
           looseUrl: looseUrl,
         ),
+        builder: builder,
         onTap: (match) {
           String url = match;
           if (!match.startsWith("http://") && !match.startsWith("https://")) {
@@ -112,6 +122,7 @@ class DecoratorRule {
     required String text,
     required TextStyle style,
     Function(String)? onTap,
+    Widget Function(Widget)? builder,
     bool caseSensitive = false,
   }) {
     return DecoratorRule(
@@ -120,6 +131,7 @@ class DecoratorRule {
         text,
         caseSensitive: caseSensitive,
       ),
+      builder: builder,
       onTap: onTap,
     );
   }
@@ -129,6 +141,7 @@ class DecoratorRule {
     required String end,
     required TextStyle style,
     Function(String)? onTap,
+    Widget Function(Widget)? builder,
     bool removeMatchingCharacters = false,
     bool caseSensitive = false,
   }) {
@@ -140,6 +153,7 @@ class DecoratorRule {
         caseSensitive: caseSensitive,
       ),
       onTap: onTap,
+      builder: builder,
       transformMatch: (match) {
         if (removeMatchingCharacters) {
           String res = match;

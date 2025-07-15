@@ -14,6 +14,7 @@ TextSpan getDecoratedTextSpan({
   final decorations = Decorator(
     rules: rules,
   ).getDecorations(source, rules);
+  
   if (decorations.isEmpty) {
     return TextSpan(
       text: source,
@@ -30,74 +31,131 @@ TextSpan getDecoratedTextSpan({
               if (item.rule?.transformMatch != null) {
                 text = item.rule!.transformMatch!(text);
               }
-              return MapEntry(
-                index,
-                TextSpan(
-                  style: item.rule?.style,
-                  text: selectable ||
-                          (item.rule?.leadingBuilder == null &&
-                              item.rule?.leadingBuilder == null)
-                      ? text
-                      : null,
-                  children: selectable ||
-                          (item.rule?.leadingBuilder == null &&
-                              item.rule?.leadingBuilder == null)
+              
+              // Check if this rule has a builder
+              if (item.rule?.builder != null) {
+                // Create the base widget for the text
+                final textWidget = GestureDetector(
+                  onTap: item.rule?.onTap == null
                       ? null
-                      : [
-                          WidgetSpan(
-                            alignment: PlaceholderAlignment.middle,
-                            child: GestureDetector(
-                              onTap: decorations[index].rule?.onTap == null
-                                  ? null
-                                  : () {
-                                      final decoration = decorations[index];
-                                      if (decoration.rule?.onTap != null) {
-                                        decoration.rule?.onTap!(
-                                          decoration.range
-                                              .textInside(source)
-                                              .trim(),
-                                        );
-                                      }
-                                    },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  if (item.rule?.leadingBuilder != null)
-                                    item.rule!.leadingBuilder!(
-                                      decorations[index]
-                                          .range
-                                          .textInside(source)
-                                          .trim(),
-                                    ),
-                                  Text(
-                                    text,
-                                    style: item.rule?.style,
-                                  ),
-                                  if (item.rule?.trailingBuilder != null)
-                                    item.rule!.trailingBuilder!(
-                                      decorations[index]
-                                          .range
-                                          .textInside(source)
-                                          .trim(),
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                  recognizer: decorations[index].rule?.onTap == null
-                      ? null
-                      : (TapGestureRecognizer()
-                        ..onTap = () {
+                      : () {
                           final decoration = decorations[index];
                           if (decoration.rule?.onTap != null) {
                             decoration.rule?.onTap!(
                               decoration.range.textInside(source).trim(),
                             );
                           }
-                        }),
-                ),
-              );
+                        },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (item.rule?.leadingBuilder != null)
+                        item.rule!.leadingBuilder!(
+                          decorations[index]
+                              .range
+                              .textInside(source)
+                              .trim(),
+                        ),
+                      Text(
+                        text,
+                        style: item.rule?.style,
+                      ),
+                      if (item.rule?.trailingBuilder != null)
+                        item.rule!.trailingBuilder!(
+                          decorations[index]
+                              .range
+                              .textInside(source)
+                              .trim(),
+                        ),
+                    ],
+                  ),
+                );
+                
+                // Wrap with the custom builder
+                final wrappedWidget = item.rule!.builder!(textWidget);
+                
+                return MapEntry(
+                  index,
+                  TextSpan(
+                    children: [
+                      WidgetSpan(
+                        alignment: PlaceholderAlignment.middle,
+                        child: wrappedWidget,
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                // Original logic for rules without builder
+                return MapEntry(
+                  index,
+                  TextSpan(
+                    style: item.rule?.style,
+                    text: selectable ||
+                            (item.rule?.leadingBuilder == null &&
+                                item.rule?.trailingBuilder == null)
+                        ? text
+                        : null,
+                    children: selectable ||
+                            (item.rule?.leadingBuilder == null &&
+                                item.rule?.trailingBuilder == null)
+                        ? null
+                        : [
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment.middle,
+                              child: GestureDetector(
+                                onTap: decorations[index].rule?.onTap == null
+                                    ? null
+                                    : () {
+                                        final decoration = decorations[index];
+                                        if (decoration.rule?.onTap != null) {
+                                          decoration.rule?.onTap!(
+                                            decoration.range
+                                                .textInside(source)
+                                                .trim(),
+                                          );
+                                        }
+                                      },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    if (item.rule?.leadingBuilder != null)
+                                      item.rule!.leadingBuilder!(
+                                        decorations[index]
+                                            .range
+                                            .textInside(source)
+                                            .trim(),
+                                      ),
+                                    Text(
+                                      text,
+                                      style: item.rule?.style,
+                                    ),
+                                    if (item.rule?.trailingBuilder != null)
+                                      item.rule!.trailingBuilder!(
+                                        decorations[index]
+                                            .range
+                                            .textInside(source)
+                                            .trim(),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                    recognizer: decorations[index].rule?.onTap == null
+                        ? null
+                        : (TapGestureRecognizer()
+                          ..onTap = () {
+                            final decoration = decorations[index];
+                            if (decoration.rule?.onTap != null) {
+                              decoration.rule?.onTap!(
+                                decoration.range.textInside(source).trim(),
+                              );
+                            }
+                          }),
+                  ),
+                );
+              }
             } catch (err) {
               return MapEntry(index, null);
             }
