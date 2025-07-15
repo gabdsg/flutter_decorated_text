@@ -1,3 +1,7 @@
+## [2.0.0] - Updated for flutter 3.0
+* Update for flutter 3.0
+* Add custom builder for rules
+
 ## [1.0.14] - Update package dependencies
 
 * Update README and package description
