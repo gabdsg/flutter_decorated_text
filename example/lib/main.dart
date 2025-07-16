@@ -153,6 +153,12 @@ class _ExampleScreenState extends State<ExampleScreen> {
                 onTap: (url) {
                   debugPrint(url);
                 },
+                builder: (child, match) {
+                  debugPrint(match);
+                  return Container(
+                    child: child,
+                  );
+                },
                 style: const TextStyle(
                   color: Colors.blue,
                   decoration: TextDecoration.underline,

@@ -8,7 +8,7 @@ class DecoratorRule {
   final String Function(String)? transformMatch;
   final Widget Function(String)? leadingBuilder;
   final Widget Function(String)? trailingBuilder;
-  final Widget Function(Widget)? builder;
+  final Widget Function(Widget, String)? builder;
 
   DecoratorRule({
     required this.regExp,
@@ -24,7 +24,7 @@ class DecoratorRule {
     required String word,
     required TextStyle style,
     Function(String)? onTap,
-     Widget Function(Widget)? builder,
+    Widget Function(Widget, String)? builder,
     bool caseSensitive = false,
   }) {
     return DecoratorRule(
@@ -41,7 +41,7 @@ class DecoratorRule {
   factory DecoratorRule.words({
     required List<String> words,
     required TextStyle style,
-     Widget Function(Widget)? builder,
+     Widget Function(Widget, String)? builder,
     Function(String)? onTap,
     bool caseSensitive = false,
   }) {
@@ -59,7 +59,7 @@ class DecoratorRule {
   factory DecoratorRule.email({
     required TextStyle style,
     required Function(String) onTap,
-     Widget Function(Widget)? builder,
+     Widget Function(Widget, String)? builder,
   }) {
     return DecoratorRule(
       style: style,
@@ -81,7 +81,7 @@ class DecoratorRule {
   factory DecoratorRule.url({
     required TextStyle style,
     required Function(String) onTap,
-    Widget Function(Widget)? builder,
+    Widget Function(Widget, String)? builder,
     bool looseUrl = true,
     bool humanize = false,
     bool removeWww = false,
@@ -122,7 +122,7 @@ class DecoratorRule {
     required String text,
     required TextStyle style,
     Function(String)? onTap,
-    Widget Function(Widget)? builder,
+    Widget Function(Widget, String)? builder,
     bool caseSensitive = false,
   }) {
     return DecoratorRule(
@@ -141,7 +141,7 @@ class DecoratorRule {
     required String end,
     required TextStyle style,
     Function(String)? onTap,
-    Widget Function(Widget)? builder,
+    Widget Function(Widget, String)? builder,
     bool removeMatchingCharacters = false,
     bool caseSensitive = false,
   }) {

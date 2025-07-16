@@ -72,7 +72,8 @@ TextSpan getDecoratedTextSpan({
                 );
                 
                 // Wrap with the custom builder
-                final wrappedWidget = item.rule!.builder!(textWidget);
+                final wrappedWidget = item.rule!.builder!(textWidget,
+                    decorations[index].range.textInside(source).trim());
                 
                 return MapEntry(
                   index,
