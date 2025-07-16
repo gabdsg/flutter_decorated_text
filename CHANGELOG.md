@@ -1,3 +1,6 @@
+## [2.0.1] - Add match parameter to builder function
+* Add match parameter to builder function
+
 ## [2.0.0] - Updated for flutter 3.0
 * Update for flutter 3.0
 * Add custom builder for rules

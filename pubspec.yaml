@@ -1,7 +1,7 @@
 name: flutter_decorated_text
 description: >-
   The DecoratedText widget allows you to style and interact with different parts of a text string based on predefined rules. It's versatile, easy-to-use, and can handle different scenarios such as matching specific words, phrases, or patterns, allowing you to style the matched text differently.
-version: 2.0.0
+version: 2.0.1
 repository: https://github.com/gabdsg/flutter_decorated_text
 
 environment:
