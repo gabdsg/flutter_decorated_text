@@ -34,7 +34,7 @@ TextSpan getDecoratedTextSpan({
               
               // Check if this rule has a builder
               if (item.rule?.builder != null) {
-                // Create the base widget for the text
+                // Create the base widget for the text with flexible layout
                 final textWidget = GestureDetector(
                   onTap: item.rule?.onTap == null
                       ? null
@@ -46,32 +46,37 @@ TextSpan getDecoratedTextSpan({
                             );
                           }
                         },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (item.rule?.leadingBuilder != null)
-                        item.rule!.leadingBuilder!(
-                          decorations[index]
-                              .range
-                              .textInside(source)
-                              .trim(),
+                  child: IntrinsicWidth(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (item.rule?.leadingBuilder != null)
+                          item.rule!.leadingBuilder!(
+                            decorations[index]
+                                .range
+                                .textInside(source)
+                                .trim(),
+                          ),
+                        Flexible(
+                          child: Text(
+                            text,
+                            style: item.rule?.style,
+                            overflow: TextOverflow.visible,
+                          ),
                         ),
-                      Text(
-                        text,
-                        style: item.rule?.style,
-                      ),
-                      if (item.rule?.trailingBuilder != null)
-                        item.rule!.trailingBuilder!(
-                          decorations[index]
-                              .range
-                              .textInside(source)
-                              .trim(),
-                        ),
-                    ],
+                        if (item.rule?.trailingBuilder != null)
+                          item.rule!.trailingBuilder!(
+                            decorations[index]
+                                .range
+                                .textInside(source)
+                                .trim(),
+                          ),
+                      ],
+                    ),
                   ),
                 );
                 
-                // Wrap with the custom builder
+                // Wrap with the custom builder (passing both widget and text)
                 final wrappedWidget = item.rule!.builder!(textWidget,
                     decorations[index].range.textInside(source).trim());
                 
@@ -80,7 +85,8 @@ TextSpan getDecoratedTextSpan({
                   TextSpan(
                     children: [
                       WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
+                        alignment: PlaceholderAlignment.baseline,
+                        baseline: TextBaseline.alphabetic,
                         child: wrappedWidget,
                       ),
                     ],
