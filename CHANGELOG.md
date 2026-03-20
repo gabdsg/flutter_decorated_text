@@ -1,3 +1,7 @@
+## [2.0.2] - Fix overflow
+
+* Fix overflow issue
+
 ## [2.0.1] - Add match parameter to builder function
 * Add match parameter to builder function
 
