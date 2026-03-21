@@ -14,7 +14,7 @@ TextSpan getDecoratedTextSpan({
   final decorations = Decorator(
     rules: rules,
   ).getDecorations(source, rules);
-  
+
   if (decorations.isEmpty) {
     return TextSpan(
       text: source,
@@ -27,11 +27,13 @@ TextSpan getDecoratedTextSpan({
         .map(
           (index, item) {
             try {
-              String text = item.range.textInside(source);
+              final rawText = item.range.textInside(source);
+              final trimmedText = rawText.trim();
+              String text = rawText;
               if (item.rule?.transformMatch != null) {
-                text = item.rule!.transformMatch!(text);
+                text = item.rule!.transformMatch!(rawText);
               }
-              
+
               // Check if this rule has a builder
               if (item.rule?.builder != null) {
                 // Create the base widget for the text with flexible layout
@@ -39,47 +41,32 @@ TextSpan getDecoratedTextSpan({
                   onTap: item.rule?.onTap == null
                       ? null
                       : () {
-                          final decoration = decorations[index];
-                          if (decoration.rule?.onTap != null) {
-                            decoration.rule?.onTap!(
-                              decoration.range.textInside(source).trim(),
-                            );
+                          if (item.rule?.onTap != null) {
+                            item.rule?.onTap!(trimmedText);
                           }
                         },
-                  child: IntrinsicWidth(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (item.rule?.leadingBuilder != null)
-                          item.rule!.leadingBuilder!(
-                            decorations[index]
-                                .range
-                                .textInside(source)
-                                .trim(),
-                          ),
-                        Flexible(
-                          child: Text(
-                            text,
-                            style: item.rule?.style,
-                            overflow: TextOverflow.visible,
-                          ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (item.rule?.leadingBuilder != null)
+                        item.rule!.leadingBuilder!(trimmedText),
+                      Flexible(
+                        child: Text(
+                          text,
+                          style: item.rule?.style,
+                          overflow: TextOverflow.visible,
                         ),
-                        if (item.rule?.trailingBuilder != null)
-                          item.rule!.trailingBuilder!(
-                            decorations[index]
-                                .range
-                                .textInside(source)
-                                .trim(),
-                          ),
-                      ],
-                    ),
+                      ),
+                      if (item.rule?.trailingBuilder != null)
+                        item.rule!.trailingBuilder!(trimmedText),
+                    ],
                   ),
                 );
-                
+
                 // Wrap with the custom builder (passing both widget and text)
-                final wrappedWidget = item.rule!.builder!(textWidget,
-                    decorations[index].range.textInside(source).trim());
-                
+                final wrappedWidget =
+                    item.rule!.builder!(textWidget, trimmedText);
+
                 return MapEntry(
                   index,
                   TextSpan(
@@ -111,53 +98,35 @@ TextSpan getDecoratedTextSpan({
                             WidgetSpan(
                               alignment: PlaceholderAlignment.middle,
                               child: GestureDetector(
-                                onTap: decorations[index].rule?.onTap == null
+                                onTap: item.rule?.onTap == null
                                     ? null
                                     : () {
-                                        final decoration = decorations[index];
-                                        if (decoration.rule?.onTap != null) {
-                                          decoration.rule?.onTap!(
-                                            decoration.range
-                                                .textInside(source)
-                                                .trim(),
-                                          );
+                                        if (item.rule?.onTap != null) {
+                                          item.rule?.onTap!(trimmedText);
                                         }
                                       },
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     if (item.rule?.leadingBuilder != null)
-                                      item.rule!.leadingBuilder!(
-                                        decorations[index]
-                                            .range
-                                            .textInside(source)
-                                            .trim(),
-                                      ),
+                                      item.rule!.leadingBuilder!(trimmedText),
                                     Text(
                                       text,
                                       style: item.rule?.style,
                                     ),
                                     if (item.rule?.trailingBuilder != null)
-                                      item.rule!.trailingBuilder!(
-                                        decorations[index]
-                                            .range
-                                            .textInside(source)
-                                            .trim(),
-                                      ),
+                                      item.rule!.trailingBuilder!(trimmedText),
                                   ],
                                 ),
                               ),
                             ),
                           ],
-                    recognizer: decorations[index].rule?.onTap == null
+                    recognizer: item.rule?.onTap == null
                         ? null
                         : (TapGestureRecognizer()
                           ..onTap = () {
-                            final decoration = decorations[index];
-                            if (decoration.rule?.onTap != null) {
-                              decoration.rule?.onTap!(
-                                decoration.range.textInside(source).trim(),
-                              );
+                            if (item.rule?.onTap != null) {
+                              item.rule?.onTap!(trimmedText);
                             }
                           }),
                   ),

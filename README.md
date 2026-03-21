@@ -13,6 +13,7 @@ The `DecoratedText` widget allows you to style and interact with different parts
     - Matching text between specific tags.
     - Matching links (URLs).
 - **Interactive:** Each rule can include an `onTap` callback, which returns the matched text, allowing you to implement interactive behavior such as opening a link when a URL is tapped.
+- **Performance Optimized:** RegExp patterns are cached internally, decoration results are memoized in text controllers, and tag deduplication uses an efficient O(n log n) algorithm.
 
 ## Usage Examples
 
@@ -113,20 +114,19 @@ DecoratedText(
     text: "Match links and add the favicon: https://pub.dev/, https://google.com, stackoverflow.com and talkingpts.org",
     rules: [
         DecoratorRule(
-        regExp: RegExp(r'((https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256
-
-}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))',
-            caseSensitive: false,
-            dotAll: true,
-            multiLine: true,
-        ),
-        onTap: (url) {
-            print(url);
-        },
-        style: TextStyle(
-            color: Colors.blue,
-        ),
-        leadingBuilder: (match) => Container(
+            regExp: RegExp(
+                r'((https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))',
+                caseSensitive: false,
+                dotAll: true,
+                multiLine: true,
+            ),
+            onTap: (url) {
+                print(url);
+            },
+            style: TextStyle(
+                color: Colors.blue,
+            ),
+            leadingBuilder: (match) => Container(
                 width: 16 * 0.8,
                 height: 16 * 0.8,
                 margin: const EdgeInsets.only(right: 2, left: 2),
@@ -136,26 +136,47 @@ DecoratedText(
             ),
         ),
     ],
-),
+);
 ```
-
 
 ### Match emojis
-```
+
+```dart
 DecoratedText(
     text: "I love Flutter! 😍",
     rules: [
         DecoratorRule(
-        regExp: RegExp(r'(\p{Emoji_Presentation})', unicode: true),
-        style: const TextStyle(
-            fontSize: 30.0,
-        ),
-        onTap: (emoji) {
-            debugPrint('You tapped on the emoji: $emoji');
-        },
+            regExp: RegExp(r'(\p{Emoji_Presentation})', unicode: true),
+            style: const TextStyle(
+                fontSize: 30.0,
+            ),
+            onTap: (emoji) {
+                debugPrint('You tapped on the emoji: $emoji');
+            },
         ),
     ],
-),
+);
 ```
+
+### Performance Tips
+
+For best performance when using custom `RegExp` patterns, cache them outside the `build()` method:
+
+```dart
+// Cache at the class or file level — avoid creating inside build()
+final _myRegExp = RegExp(r'my-pattern');
+
+@override
+Widget build(BuildContext context) {
+    return DecoratedText(
+        text: "...",
+        rules: [
+            DecoratorRule(regExp: _myRegExp, style: TextStyle(...)),
+        ],
+    );
+}
+```
+
+Built-in rules like `DecoratorRule.words()`, `DecoratorRule.url()`, etc. handle caching automatically.
 
 Remember, with the `DecoratedText` widget, you can style your text based on predefined rules, add interactivity, and handle complex matching scenarios with ease. Happy coding!

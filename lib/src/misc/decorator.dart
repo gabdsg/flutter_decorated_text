@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Decoration;
 
 import '../models/decoration.dart';
@@ -15,6 +14,7 @@ class Decorator {
   List<Decoration> _getSourceDecorations(
     List<RegExpMatch> tags,
     String copiedText,
+    Map<RegExp, DecoratorRule> ruleByRegExp,
   ) {
     TextRange? previousItem;
     final List<Decoration> result = [];
@@ -45,10 +45,7 @@ class Decorator {
             start: tag.start,
             end: tag.end,
           ),
-          rule: rules.firstWhereOrNull(
-            (element) =>
-                tag.pattern.toString().contains(element.regExp.pattern),
-          ),
+          rule: ruleByRegExp[tag.pattern],
         ),
       );
 
@@ -77,43 +74,35 @@ class Decorator {
     String copiedText,
     List<DecoratorRule> rules,
   ) {
+    final ruleByRegExp = <RegExp, DecoratorRule>{};
     final List<RegExpMatch> tagsTemp = [];
     for (final rule in rules) {
-      final regExp = rule.regExp;
-      final localTags = regExp.allMatches(copiedText);
-      tagsTemp.addAll(localTags);
+      ruleByRegExp[rule.regExp] = rule;
+      tagsTemp.addAll(rule.regExp.allMatches(copiedText));
     }
 
-    final List<RegExpMatch> tags = [];
-    for (final tag in tagsTemp) {
-      if (tags.any((e) => tag.start <= e.start && tag.end >= e.end)) {
-        tags.removeWhere((e) => tag.start <= e.start && tag.end >= e.end);
-        tags.add(tag);
-      } else if (!tags.any((e) => tag.start >= e.start && tag.end <= e.end)) {
-        tags.add(tag);
-      }
-    }
-
-    if (tags.isEmpty) {
+    if (tagsTemp.isEmpty) {
       return [];
     }
 
-    tags.sort((a, b) {
-      return a.start < b.start ? -1 : 1;
+    // Sort by start position; for ties, prefer longer (wider) matches
+    tagsTemp.sort((a, b) {
+      final cmp = a.start.compareTo(b.start);
+      if (cmp != 0) return cmp;
+      return b.end.compareTo(a.end);
     });
 
-    final Set<RegExpMatch> toRemoveTags = {};
-    for (final tagA in tags) {
-      for (final tagB in tags) {
-        if (tagA.start > tagB.start && tagA.end < tagB.end) {
-          toRemoveTags.add(tagA);
-        }
+    // Single-pass greedy deduplication: keep widest non-overlapping matches
+    final List<RegExpMatch> tags = [tagsTemp.first];
+    for (int i = 1; i < tagsTemp.length; i++) {
+      final current = tagsTemp[i];
+      final last = tags.last;
+      if (current.start >= last.end) {
+        tags.add(current);
       }
-    }
-    for (final tag in toRemoveTags) {
-      tags.remove(tag);
+      // else: overlapping or contained — skip
     }
 
-    return _getSourceDecorations(tags, copiedText);
+    return _getSourceDecorations(tags, copiedText, ruleByRegExp);
   }
 }

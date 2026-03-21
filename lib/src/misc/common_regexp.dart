@@ -1,14 +1,17 @@
 // ignore: avoid_classes_with_only_static_members
 class CommonRegExp {
+  static final Map<String, RegExp> _cache = {};
+
   static RegExp word(
     String word, {
     bool caseSensitive = false,
     bool multiLine = true,
   }) {
-    return RegExp(
-      "\\b($word)\\b",
-      caseSensitive: caseSensitive,
-      multiLine: multiLine,
+    final pattern = "\\b($word)\\b";
+    final key = '$pattern|$caseSensitive|$multiLine';
+    return _cache.putIfAbsent(
+      key,
+      () => RegExp(pattern, caseSensitive: caseSensitive, multiLine: multiLine),
     );
   }
 
@@ -17,21 +20,22 @@ class CommonRegExp {
     bool caseSensitive = false,
     bool multiLine = true,
   }) {
-    return RegExp(
-      "\\b(${words.join("|")})\\b",
-      caseSensitive: caseSensitive,
-      multiLine: multiLine,
+    final pattern = "\\b(${words.join("|")})\\b";
+    final key = '$pattern|$caseSensitive|$multiLine';
+    return _cache.putIfAbsent(
+      key,
+      () => RegExp(pattern, caseSensitive: caseSensitive, multiLine: multiLine),
     );
   }
 
-  static RegExp email() {
-    return RegExp(
-      r'((mailto:)?[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z][A-Z]+)',
-      caseSensitive: false,
-      dotAll: true,
-      multiLine: true,
-    );
-  }
+  static final _emailRegex = RegExp(
+    r'((mailto:)?[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z][A-Z]+)',
+    caseSensitive: false,
+    dotAll: true,
+    multiLine: true,
+  );
+
+  static RegExp email() => _emailRegex;
 
   static final _urlRegex = RegExp(
     r'((?:https?:\/\/|www\.)[^\s/$.?#].[^\s]*)',
@@ -57,10 +61,11 @@ class CommonRegExp {
     bool multiLine = true,
   }) {
     const String backslash = r'\';
-    return RegExp(
-      "$backslash$text(\\S+)",
-      caseSensitive: caseSensitive,
-      multiLine: multiLine,
+    final pattern = "$backslash$text(\\S+)";
+    final key = '$pattern|$caseSensitive|$multiLine';
+    return _cache.putIfAbsent(
+      key,
+      () => RegExp(pattern, caseSensitive: caseSensitive, multiLine: multiLine),
     );
   }
 
@@ -71,10 +76,11 @@ class CommonRegExp {
     bool multiLine = true,
   }) {
     const String backslash = r'\';
-    return RegExp(
-      "$backslash$start(.*?)$backslash$end",
-      caseSensitive: caseSensitive,
-      multiLine: multiLine,
+    final pattern = "$backslash$start(.*?)$backslash$end";
+    final key = '$pattern|$caseSensitive|$multiLine';
+    return _cache.putIfAbsent(
+      key,
+      () => RegExp(pattern, caseSensitive: caseSensitive, multiLine: multiLine),
     );
   }
 }

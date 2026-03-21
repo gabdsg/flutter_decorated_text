@@ -11,6 +11,10 @@ class DecoratedTextEditingController extends TextEditingController {
 
   final List<DecoratorRule> rules;
 
+  String? _cachedText;
+  TextStyle? _cachedStyle;
+  TextSpan? _cachedSpan;
+
   @override
   TextSpan buildTextSpan({
     required BuildContext context,
@@ -23,11 +27,22 @@ class DecoratedTextEditingController extends TextEditingController {
       withComposing: withComposing,
     );
 
-    return getDecoratedTextSpan(
-      style: originalTextSpan.style!,
+    final currentStyle = originalTextSpan.style!;
+
+    if (_cachedSpan != null &&
+        _cachedText == text &&
+        _cachedStyle == currentStyle) {
+      return _cachedSpan!;
+    }
+
+    _cachedText = text;
+    _cachedStyle = currentStyle;
+    _cachedSpan = getDecoratedTextSpan(
+      style: currentStyle,
       source: text,
       rules: rules,
       selectable: true,
     );
+    return _cachedSpan!;
   }
 }

@@ -30,6 +30,16 @@ class ExampleScreen extends StatefulWidget {
   State<ExampleScreen> createState() => _ExampleScreenState();
 }
 
+// ignore: valid_regexps
+final _emojiRegExp = RegExp(r'(\p{Emoji_Presentation})', unicode: true);
+
+final _customUrlRegExp = RegExp(
+  r'((https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))',
+  caseSensitive: false,
+  dotAll: true,
+  multiLine: true,
+);
+
 class _ExampleScreenState extends State<ExampleScreen> {
   @override
   void initState() {
@@ -178,12 +188,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
                 "Match links and add the favicon: https://pub.dev/, https://google.com, stackoverflow.com and talkingpts.org",
             rules: [
               DecoratorRule(
-                regExp: RegExp(
-                  r'((https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))',
-                  caseSensitive: false,
-                  dotAll: true,
-                  multiLine: true,
-                ),
+                regExp: _customUrlRegExp,
                 onTap: (url) {
                   debugPrint(url);
                 },
@@ -210,7 +215,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
             text: "I love Flutter! 😍",
             rules: [
               DecoratorRule(
-                regExp: RegExp(r'(\p{Emoji_Presentation})', unicode: true),
+                regExp: _emojiRegExp,
                 style: const TextStyle(
                   fontSize: 30.0,
                 ),

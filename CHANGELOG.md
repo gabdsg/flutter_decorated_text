@@ -1,3 +1,12 @@
+## [2.1.0] - Performance improvements
+
+* Cache compiled RegExp objects to avoid recompilation on every build
+* Cache TextSpan in DecoratedTextEditingController when text is unchanged
+* Optimize tag deduplication from O(n^2) to O(n log n)
+* Use RegExp identity lookup instead of string matching for rule resolution
+* Remove IntrinsicWidth to eliminate unnecessary two-pass layout
+* Reduce redundant text extraction in decoration span builder
+
 ## [2.0.2] - Fix overflow
 
 * Fix overflow issue
