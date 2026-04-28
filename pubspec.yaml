@@ -1,7 +1,7 @@
 name: flutter_decorated_text
 description: >-
   A widget to style and interact with parts of a text based on rules. Match words, phrases, or patterns and apply custom styles or actions.
-version: 2.1.0
+version: 2.2.0
 repository: https://github.com/gabdsg/flutter_decorated_text
 
 environment:
