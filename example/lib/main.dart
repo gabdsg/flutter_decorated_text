@@ -157,7 +157,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
           ),
           DecoratedText(
             text:
-                "You can match links with https https://pub.dev/ and links without it like google.com",
+                "You can match links with https https://pub.dev/ and links without it like google.com and https://9aj0gkkctc1.typeform.com/to/CCMi4zIk",
             rules: [
               DecoratorRule.url(
                 onTap: (url) {

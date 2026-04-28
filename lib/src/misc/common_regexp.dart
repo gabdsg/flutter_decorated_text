@@ -7,7 +7,7 @@ class CommonRegExp {
     bool caseSensitive = false,
     bool multiLine = true,
   }) {
-    final pattern = "\\b($word)\\b";
+    final pattern = "\\b(${RegExp.escape(word)})\\b";
     final key = '$pattern|$caseSensitive|$multiLine';
     return _cache.putIfAbsent(
       key,
@@ -20,7 +20,8 @@ class CommonRegExp {
     bool caseSensitive = false,
     bool multiLine = true,
   }) {
-    final pattern = "\\b(${words.join("|")})\\b";
+    final escaped = words.map(RegExp.escape).join('|');
+    final pattern = "\\b($escaped)\\b";
     final key = '$pattern|$caseSensitive|$multiLine';
     return _cache.putIfAbsent(
       key,
@@ -60,8 +61,7 @@ class CommonRegExp {
     bool caseSensitive = false,
     bool multiLine = true,
   }) {
-    const String backslash = r'\';
-    final pattern = "$backslash$text(\\S+)";
+    final pattern = "${RegExp.escape(text)}(\\S+)";
     final key = '$pattern|$caseSensitive|$multiLine';
     return _cache.putIfAbsent(
       key,
@@ -75,8 +75,8 @@ class CommonRegExp {
     bool caseSensitive = false,
     bool multiLine = true,
   }) {
-    const String backslash = r'\';
-    final pattern = "$backslash$start(.*?)$backslash$end";
+    final pattern =
+        "${RegExp.escape(start)}(.*?)${RegExp.escape(end)}";
     final key = '$pattern|$caseSensitive|$multiLine';
     return _cache.putIfAbsent(
       key,
