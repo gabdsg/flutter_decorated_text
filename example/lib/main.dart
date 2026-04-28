@@ -157,7 +157,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
           ),
           DecoratedText(
             text:
-                "You can match links with https https://pub.dev/ and links without it like google.com and https://9aj0gkkctc1.typeform.com/to/CCMi4zIk",
+                "You can match links with https https://pub.dev/ and links without it like google.com and https://subdomain.domain.com/path?query=string#fragment",
             rules: [
               DecoratorRule.url(
                 onTap: (url) {
@@ -172,6 +172,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
                 style: const TextStyle(
                   color: Colors.blue,
                   decoration: TextDecoration.underline,
+                  decorationColor: Colors.blue,
                 ),
                 humanize: false,
                 removeWww: false,
